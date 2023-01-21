@@ -17,6 +17,7 @@ Setup
 1.  Clone this repository: `git clone https://github.com/madgicaltechdom/aws-operations.git`
 2.  Navigate to the project directory: `cd aws-operations`
 3.  Deploy the function to your AWS account using the Serverless Framework: `serverless deploy`
+4. Copy the `endpoints url` from the output command line. 
 
 Usage
 -----
