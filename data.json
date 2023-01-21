@@ -1,1 +1,7 @@
-{"queryStringParameters": "i-0f0ae101cf8e3202e"}
+{
+  "queryStringParameters":
+  {
+    "instance_id": "i-0f0ae101cf8e3202e",
+    "action": "stop"
+  }
+}

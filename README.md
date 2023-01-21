@@ -3,8 +3,10 @@ AWS Operations
 
 This repository contains utility functions for AWS operations and it can be deployed using the Serverless Framework. Here is a [video demonstration](https://shorthillstech-my.sharepoint.com/:v:/p/kapil_jain/EX3JMNATCU1DvlyRIVYveHABgnVZ9nhWVKP0Z3zrcgnzWg?e=XpA4BN) of how to use this repository.
 
-AWS Operations: 
+AWS Operations:
 *   Get IP address of an instanceId e.g. `https://<serveless-endpoints>/?instance_id=<instanceId>`
+*   Start an instanceId e.g. `https://<serveless-endpoints>/?instance_id=<instanceId>&action=start`
+*   Stop an instanceId e.g. `https://<serveless-endpoints>/?instance_id=<instanceId>&action=stop`
 
 Prerequisites
 -------------
@@ -25,7 +27,7 @@ Usage
 -----
 You can invoke the endpoint using `https://<serveless-endpoints>/?instance_id=<instanceId>`
 
-You can invoke the Lambda function using the Serverless Framework: `serverless invoke --function getPublicIp --data data.json`
+You can invoke the Lambda function using the Serverless Framework: `serverless invoke --function getPublicIp --path data.json`
 
 You can also test the function by calling the endpoint that is created when you deploy the function. This endpoint will be shown in the output of the `serverless deploy` command.
 

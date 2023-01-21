@@ -8,9 +8,14 @@ provider:
         - Effect: Allow
           Action: 'ec2:DescribeInstances'
           Resource: '*'
+        - Effect: Allow
+          Action: 'ec2:StartInstances'
+          Resource: '*'
+        - Effect: Allow
+          Action: 'ec2:StopInstances'
+          Resource: '*'
   region: us-east-2
   runtime: python3.8
-  lambdaHashingVersion: '20201221'
 
 functions:
   getPublicIp:
@@ -18,4 +23,10 @@ functions:
     events:
       - httpApi:
           path: /
+          method: get
+  manageInstance:
+    handler: handler.manageInstance
+    events:
+      - httpApi:
+          path: /manageInstance
           method: get
