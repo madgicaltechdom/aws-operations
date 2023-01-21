@@ -1,8 +1,4 @@
-org: madgicaltechdom
-app: aws-find-public-ip-instance
 service: aws-find-public-ip-instance
-frameworkVersion: '2 || 3'
-
 provider:
   name: aws
   iam:
