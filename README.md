@@ -1,7 +1,9 @@
 AWS Operations
 =======================================
 
-This repository contains utility functions for AWS operations and it can be deployed using the Serverless Framework.
+This repository contains utility functions for AWS operations and it can be deployed using the Serverless Framework. Here is a [video demonstration](https://shorthillstech-my.sharepoint.com/:v:/p/kapil_jain/EX3JMNATCU1DvlyRIVYveHABgnVZ9nhWVKP0Z3zrcgnzWg?e=XpA4BN) of how to use this repository.
+
+AWS Operations: 
 *   Get IP address of an instanceId e.g. `https://<serveless-endpoints>/?instance_id=<instanceId>`
 
 Prerequisites
@@ -17,7 +19,7 @@ Setup
 1.  Clone this repository: `git clone https://github.com/madgicaltechdom/aws-operations.git`
 2.  Navigate to the project directory: `cd aws-operations`
 3.  Deploy the function to your AWS account using the Serverless Framework: `serverless deploy`
-4. Copy the `endpoints url` from the output command line. 
+4. Copy the `endpoints url` from the output command line.
 
 Usage
 -----
