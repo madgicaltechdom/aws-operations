@@ -5,8 +5,8 @@ This repository contains utility functions for AWS operations and it can be depl
 
 AWS Operations:
 *   Get IP address of an instanceId e.g. `https://<serveless-endpoints>/?instance_id=<instanceId>`
-*   Start an instanceId e.g. `https://<serveless-endpoints>/?instance_id=<instanceId>&action=start`
-*   Stop an instanceId e.g. `https://<serveless-endpoints>/?instance_id=<instanceId>&action=stop`
+*   Start an instanceId e.g. `https://<serveless-endpoints>/manageInstance?instance_id=<instanceId>&action=start`
+*   Stop an instanceId e.g. `https://<serveless-endpoints>/manageInstance?instance_id=<instanceId>&action=stop`
 
 Prerequisites
 -------------
