@@ -1,0 +1,32 @@
+service: aws-find-public-ip-instance
+provider:
+  name: aws
+  iam:
+    role:
+      statements:
+        # Allow functions to list all ec2 Instances
+        - Effect: Allow
+          Action: 'ec2:DescribeInstances'
+          Resource: '*'
+        - Effect: Allow
+          Action: 'ec2:StartInstances'
+          Resource: '*'
+        - Effect: Allow
+          Action: 'ec2:StopInstances'
+          Resource: '*'
+  region: ap-south-1
+  runtime: python3.8
+
+functions:
+  getPublicIp:
+    handler: handler.getPublicIp
+    events:
+      - httpApi:
+          path: /
+          method: get
+  manageInstance:
+    handler: handler.manageInstance
+    events:
+      - httpApi:
+          path: /manageInstance
+          method: get
