@@ -14,7 +14,7 @@ provider:
         - Effect: Allow
           Action: 'ec2:StopInstances'
           Resource: '*'
-  region: us-east-2
+  region: ap-south-1
   runtime: python3.8
 
 functions:
