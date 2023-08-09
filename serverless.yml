@@ -1,5 +1,8 @@
 service: aws-find-public-ip-instance
 provider:
+  environment:
+    SLACK_URL: ''
+    WARN_LIMIT: 0.85
   name: aws
   iam:
     role:
@@ -14,8 +17,12 @@ provider:
         - Effect: Allow
           Action: 'ec2:StopInstances'
           Resource: '*'
-  region: us-east-2
+        - Effect: Allow
+          Action: 'ses:GetSendQuota'
+          Resource: '*'  
+  region: ap-south-1
   runtime: python3.8
+  lambdaHashingVersion: 20201221
 
 functions:
   getPublicIp:
@@ -29,4 +36,10 @@ functions:
     events:
       - httpApi:
           path: /manageInstance
+          method: get
+  getSESQuota:
+    handler: handler.get_ses_quota
+    events:
+      - httpApi:
+          path: /getSESQuota
           method: get
