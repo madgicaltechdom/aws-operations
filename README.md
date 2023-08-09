@@ -7,6 +7,7 @@ AWS Operations:
 *   Get IP address of an instanceId e.g. `https://<serveless-endpoints>/?instance_id=<instanceId>`
 *   Start an instanceId e.g. `https://<serveless-endpoints>/manageInstance?instance_id=<instanceId>&action=start`
 *   Stop an instanceId e.g. `https://<serveless-endpoints>/manageInstance?instance_id=<instanceId>&action=stop`
+*   Check SES Quota e.g.  `https://<serveless-endpoints>/getSESQuota`
 
 Prerequisites
 -------------
