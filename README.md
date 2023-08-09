@@ -14,6 +14,7 @@ Prerequisites
 *   [AWS account and credentials set up on your local machine](https://www.serverless.com/framework/docs/providers/aws/guide/credentials/)
 *   Node.js and npm installed
 *   Serverless Framework installed (`npm install -g serverless`)
+*   Enable [Slack webhook](https://api.slack.com/messaging/webhooks) and update SLACK_URL variable in serverless.yml 
 
 Setup
 -----
