@@ -56,11 +56,11 @@ def get_ses_quota(event, context):
 
     return response
 
-def post_message(url, message):
-    """Post a message to slack using a webhook url."""
-    data = {'text': message}
-    http = urllib3.PoolManager()
-    resp = http.request('POST', url,
-             headers={'Content-Type': 'application/json'},
-             body=json.dumps(data))
-    return {"statusCode": resp.status, "body": json.dumps(body)}
+# def post_message(url, message):
+#     """Post a message to slack using a webhook url."""
+#     data = {'text': message}
+#     http = urllib3.PoolManager()
+#     resp = http.request('POST', url,
+#              headers={'Content-Type': 'application/json'},
+#              body=json.dumps(data))
+#     return {"statusCode": resp.status, "body": json.dumps(body)}
