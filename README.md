@@ -1,5 +1,11 @@
 AWS Operations
-=======================================
+======================================
+
+**Hook:** AWS operations are manual — inconsistent across environments.
+
+**Body:** AWS operational scripts and automation.
+
+**Closer:** Automated AWS operations — consistent environments.
 
 This repository contains utility functions for AWS operations and it can be deployed using the Serverless Framework. Here is a [video demonstration](https://shorthillstech-my.sharepoint.com/:v:/p/kapil_jain/EX3JMNATCU1DvlyRIVYveHABgnVZ9nhWVKP0Z3zrcgnzWg?e=XpA4BN) of how to use this repository.
 
