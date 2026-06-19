@@ -20,7 +20,7 @@ def get_instance_id_from_tags(event):
         filters.append({"Name": "tag:environment", "Values": [params["environment"]]})
 
     if not filters:
-        print("Missing instance tag query parameters")
+        print("Missing instance tag query parameters", flush=True)
         return None, response(
             400,
             {
@@ -36,7 +36,7 @@ def get_instance_id_from_tags(event):
             instance_ids.append(instance["InstanceId"])
 
     if len(instance_ids) != 1:
-        print(f"Tag lookup did not resolve to one instance filters={filters} instance_ids={instance_ids}")
+        print(f"Tag lookup did not resolve to one instance filters={filters} instance_ids={instance_ids}", flush=True)
         return None, response(
             400,
             {
@@ -45,7 +45,7 @@ def get_instance_id_from_tags(event):
             },
         )
 
-    print(f"Resolved instance_id={instance_ids[0]} filters={filters}")
+    print(f"Resolved instance_id={instance_ids[0]} filters={filters}", flush=True)
     return instance_ids[0], None
 
 
@@ -54,7 +54,7 @@ def getPublicIp(event, context):
     if error:
         return error
 
-    print(f"getPublicIp instance_id={instance_id}")
+    print(f"getPublicIp instance_id={instance_id}", flush=True)
 
     ec2 = boto3.client("ec2")
     instances = ec2.describe_instances(InstanceIds=[instance_id])
@@ -78,7 +78,7 @@ def manageInstance(event, context):
     if error:
         return error
 
-    print(f"manageInstance action={action} instance_id={instance_id}")
+    print(f"manageInstance action={action} instance_id={instance_id}", flush=True)
 
     ec2 = boto3.client("ec2")
     if action == "start":
