@@ -1,7 +1,7 @@
 service: aws-find-public-ip-instance
 provider:
   environment:
-    SLACK_URL: ''
+    SLACK_URL: ""
     WARN_LIMIT: 0.85
   name: aws
   iam:
@@ -9,18 +9,18 @@ provider:
       statements:
         # Allow functions to list all ec2 Instances
         - Effect: Allow
-          Action: 'ec2:DescribeInstances'
-          Resource: '*'
+          Action: "ec2:DescribeInstances"
+          Resource: "*"
         - Effect: Allow
-          Action: 'ec2:StartInstances'
-          Resource: '*'
+          Action: "ec2:StartInstances"
+          Resource: "*"
         - Effect: Allow
-          Action: 'ec2:StopInstances'
-          Resource: '*'
+          Action: "ec2:StopInstances"
+          Resource: "*"
         - Effect: Allow
-          Action: 'ses:GetSendQuota'
-          Resource: '*'  
-  region: ap-south-1
+          Action: "ses:GetSendQuota"
+          Resource: "*"
+  region: us-west-1
   runtime: python3.8
   lambdaHashingVersion: 20201221
 

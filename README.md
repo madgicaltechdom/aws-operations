@@ -1,13 +1,15 @@
 AWS Operations
 =======================================
 
-This repository contains utility functions for AWS operations and it can be deployed using the Serverless Framework. Here is a [video demonstration](https://shorthillstech-my.sharepoint.com/:v:/p/kapil_jain/EX3JMNATCU1DvlyRIVYveHABgnVZ9nhWVKP0Z3zrcgnzWg?e=XpA4BN) of how to use this repository.
+This repository contains utility functions for AWS operations and it can be deployed using the Serverless Framework.
 
 AWS Operations:
-*   Get IP address of an instanceId e.g. `https://<serveless-endpoints>/?instance_id=<instanceId>`
-*   Start an instanceId e.g. `https://<serveless-endpoints>/manageInstance?instance_id=<instanceId>&action=start`
-*   Stop an instanceId e.g. `https://<serveless-endpoints>/manageInstance?instance_id=<instanceId>&action=stop`
+*   Get IP address of an instance using tags e.g. `https://<serveless-endpoints>/?name=SonarQube&environment=qa`
+*   Start an instance using tags e.g. `https://<serveless-endpoints>/manageInstance?name=SonarQube&environment=qa&action=start`
+*   Stop an instance using tags e.g. `https://<serveless-endpoints>/manageInstance?name=SonarQube&environment=qa&action=stop`
 *   Check SES Quota e.g.  `https://<serveless-endpoints>/getSESQuota`
+
+The `name` query parameter maps to the EC2 tag key `Name`. The `environment` query parameter maps to the EC2 tag key `environment`.
 
 Prerequisites
 -------------
@@ -15,7 +17,7 @@ Prerequisites
 *   [AWS account and credentials set up on your local machine](https://www.serverless.com/framework/docs/providers/aws/guide/credentials/)
 *   Node.js and npm installed
 *   Serverless Framework installed (`npm install -g serverless`)
-*   Enable [Slack webhook](https://api.slack.com/messaging/webhooks) and update SLACK_URL variable in serverless.yml 
+*   Enable [Slack webhook](https://api.slack.com/messaging/webhooks) and update SLACK_URL variable in serverless.yml
 
 Setup
 -----
@@ -27,7 +29,8 @@ Setup
 
 Usage
 -----
-You can invoke the endpoint using `https://<serveless-endpoints>/?instance_id=<instanceId>`
+
+You can invoke the endpoint using tags: `https://<serveless-endpoints>/?name=SonarQube&environment=qa`
 
 You can invoke the Lambda function using the Serverless Framework: `serverless invoke --function getPublicIp --path data.json`
 
