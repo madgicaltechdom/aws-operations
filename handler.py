@@ -89,6 +89,96 @@ def manageInstance(event, context):
     return response(200, {"message": f"Instance has been {action}ed", "instance_id": instance_id})
 
 
+def get_fleet_id_from_tags(event):
+    params = event.get("queryStringParameters") or {}
+    ec2 = boto3.client("ec2")
+    filters = []
+
+    if params.get("name"):
+        filters.append({"Name": "tag:Name", "Values": [params["name"]]})
+
+    if params.get("environment"):
+        filters.append({"Name": "tag:environment", "Values": [params["environment"]]})
+
+    if not filters:
+        print("Missing fleet tag query parameters", flush=True)
+        return None, response(
+            400,
+            {
+                "message": "Provide fleet tags using query parameters, e.g. ?name=MyFleet&environment=qa"
+            },
+        )
+
+    fleets = ec2.describe_fleets(Filters=filters)
+    fleet_ids = []
+
+    for fleet in fleets.get("Fleets", []):
+        fleet_ids.append(fleet["FleetId"])
+
+    if len(fleet_ids) != 1:
+        print(f"Tag lookup did not resolve to one fleet filters={filters} fleet_ids={fleet_ids}", flush=True)
+        return None, response(
+            400,
+            {
+                "message": f"Expected 1 fleet for the provided tags, found {len(fleet_ids)}",
+                "fleet_ids": fleet_ids,
+            },
+        )
+
+    print(f"Resolved fleet_id={fleet_ids[0]} filters={filters}", flush=True)
+    return fleet_ids[0], None
+
+
+def get_fleet_instance_ids(ec2, fleet_id):
+    instance_ids = []
+    response = ec2.describe_fleet_instances(FleetId=fleet_id)
+    for instance in response.get("ActiveInstances", []):
+        instance_ids.append(instance["InstanceId"])
+    return instance_ids
+
+
+def manageFleet(event, context):
+    params = event.get("queryStringParameters") or {}
+    action = params.get("action", "").lower()
+
+    if action not in ("start", "stop"):
+        return response(400, {"message": "action must be start or stop"})
+
+    fleet_id, error = get_fleet_id_from_tags(event)
+    if error:
+        return error
+
+    print(f"manageFleet action={action} fleet_id={fleet_id}", flush=True)
+
+    ec2 = boto3.client("ec2")
+    fleet_resp = ec2.describe_fleets(FleetIds=[fleet_id])
+    fleet = fleet_resp["Fleets"][0]
+
+    instance_ids = get_fleet_instance_ids(ec2, fleet_id)
+    target_capacity = fleet["TargetCapacitySpecification"]["DefaultTargetCapacityType"]
+    total_target = fleet["TargetCapacitySpecification"].get("TotalTargetCapacity", 0)
+
+    print(f"manageFleet state={fleet['FleetState']} active_instances={len(instance_ids)} total_target={total_target}", flush=True)
+
+    if action == "stop":
+        if not instance_ids:
+            return response(200, {"message": "Fleet is already stopped", "fleet_id": fleet_id})
+        ec2.modify_fleet(
+            FleetId=fleet_id,
+            TargetCapacitySpecification={"TotalTargetCapacity": 0},
+        )
+        return response(200, {"message": "Fleet is being stopped", "fleet_id": fleet_id, "instance_ids": instance_ids})
+
+    if action == "start":
+        if instance_ids:
+            return response(200, {"message": "Fleet is already running", "fleet_id": fleet_id, "instance_ids": instance_ids})
+        ec2.modify_fleet(
+            FleetId=fleet_id,
+            TargetCapacitySpecification={"TotalTargetCapacity": 1},
+        )
+        return response(200, {"message": "Fleet is being started", "fleet_id": fleet_id})
+
+
 def post_message(url, message):
     data = {"text": message}
     http = urllib3.PoolManager()

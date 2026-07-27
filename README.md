@@ -5,11 +5,15 @@ This repository contains utility functions for AWS operations and it can be depl
 
 AWS Operations:
 *   Get IP address of an instance using tags e.g. `https://<serveless-endpoints>/?name=SonarQube&environment=qa`
-*   Start an instance using tags e.g. `https://<serveless-endpoints>/manageInstance?name=SonarQube&environment=qa&action=start`
-*   Stop an instance using tags e.g. `https://<serveless-endpoints>/manageInstance?name=SonarQube&environment=qa&action=stop`
+*   Start an EC2 instance using tags e.g. `https://<serveless-endpoints>/manageInstance?name=SonarQube&environment=qa&action=start`
+*   Stop an EC2 instance using tags e.g. `https://<serveless-endpoints>/manageInstance?name=SonarQube&environment=qa&action=stop`
+*   Start an EC2 Fleet using tags e.g. `https://<serveless-endpoints>/manageFleet?name=SonarQube&environment=qa&action=start`
+*   Stop an EC2 Fleet using tags e.g. `https://<serveless-endpoints>/manageFleet?name=SonarQube&environment=qa&action=stop`
 *   Check SES Quota e.g.  `https://<serveless-endpoints>/getSESQuota`
 
 The `name` query parameter maps to the EC2 tag key `Name`. The `environment` query parameter maps to the EC2 tag key `environment`.
+
+**Note:** EC2 Fleet start/stop works by modifying the fleet's target capacity. Stop sets capacity to 0 (terminates instances), start sets it back to 1 (launches new instances). With one-time Spot requests, the instance ID changes on each start.
 
 Prerequisites
 -------------

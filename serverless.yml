@@ -17,6 +17,13 @@ provider:
         - Effect: Allow
           Action: "ec2:StopInstances"
           Resource: "*"
+        # Allow functions to manage EC2 Fleets
+        - Effect: Allow
+          Action:
+            - "ec2:DescribeFleets"
+            - "ec2:DescribeFleetInstances"
+            - "ec2:ModifyFleet"
+          Resource: "*"
         - Effect: Allow
           Action: "ses:GetSendQuota"
           Resource: "*"
@@ -36,6 +43,12 @@ functions:
     events:
       - httpApi:
           path: /manageInstance
+          method: get
+  manageFleet:
+    handler: handler.manageFleet
+    events:
+      - httpApi:
+          path: /manageFleet
           method: get
   getSESQuota:
     handler: handler.get_ses_quota
