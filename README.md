@@ -15,6 +15,8 @@ The `name` query parameter maps to the EC2 tag key `Name`. The `environment` que
 
 **Note:** EC2 Fleet start/stop works by modifying the fleet's target capacity. Stop sets capacity to 0 (terminates instances), start sets it back to 1 (launches new instances). With one-time Spot requests, the instance ID changes on each start.
 
+**Note:** Fleet tag lookup only matches fleets in the `active` or `modifying` state. Deleted/cancelled fleet records (retained by AWS for up to 48 hours) are ignored, so multiple fleets sharing the same tags do not cause conflicts.
+
 Prerequisites
 -------------
 

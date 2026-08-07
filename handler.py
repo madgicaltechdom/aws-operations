@@ -113,7 +113,8 @@ def get_fleet_id_from_tags(event):
     fleet_ids = []
 
     for fleet in fleets.get("Fleets", []):
-        fleet_ids.append(fleet["FleetId"])
+        if fleet["FleetState"] in ("active", "modifying"):
+            fleet_ids.append(fleet["FleetId"])
 
     if len(fleet_ids) != 1:
         print(f"Tag lookup did not resolve to one fleet filters={filters} fleet_ids={fleet_ids}", flush=True)
